@@ -1,0 +1,23 @@
+<h2>Stock Quote Component</h2>
+
+<p>
+  This component demonstrates using retry and error handling
+  with Angular's Http service.
+</p>
+<p>
+  The retry(n) operator tells the Observable that if it errors,
+  it should call the producer function n more times to try to get
+  value(s) out of it. So retry(2) will attempt between 1 and 3
+  http requests before giving up and calling error on the observers.
+</p>
+
+<p>
+  The catch operator receives whatever value was passed to
+  its error observer, and returns an Observable that will
+  produce a value that will fail gracefully. In this case,
+  the observable just returns an object with an error message.
+</p>
+
+<h1>
+  {{ quote | async | json }}
+</h1>
