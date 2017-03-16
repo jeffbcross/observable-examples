@@ -1,0 +1,7 @@
+<h2>Ngrx Store Ticker Component</h2>
+
+<ul>
+  <li *ngFor="let price of (ticker | async)?.prices">
+    {{ price | currency }}
+  </li>
+</ul>

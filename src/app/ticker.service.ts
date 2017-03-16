@@ -1,9 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { publishReplay } from 'rxjs/operator/publishReplay';
 
 @Injectable()
 export class TickerService {
-  prices: Observable<number> = Observable.create((observer) => {
+  /**
+   * There will only be one instance
+   * of the producer with an active WebSocket connection as long as there
+   * is at least one subscriber. When everyone unsubscribes, the WebSocket
+   * connection will be closed until someone subscribes again. The values
+   * will be preserved (cached) until next time the service is subscribed to.
+   *
+   * publishReplay tells the observable to share the observable, and buffer its
+   * values to "replay" them for each additional subscription.
+   *
+   * refCount() causes the subscription to be disposed when no one is listening.
+   */
+  prices: Observable<number> = publishReplay.call(Observable.create((observer) => {
+    console.log('creating ws connection!');
     /**
      * This function will not be called until the Observable is subscribed.
      * In this case, the async pipe in our template will subscribe,
@@ -26,7 +40,8 @@ export class TickerService {
      * is destroyed.
      */
     return () => {
+      console.log('closing socket connection');
       socket.close();
     };
-  });
+  })).refCount();
 }
