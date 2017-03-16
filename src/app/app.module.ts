@@ -6,11 +6,14 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { StockQuoteComponent } from './stock-quote/stock-quote.component';
+import { StockTickerComponent } from './stock-ticker/stock-ticker.component';
+import { TickerService } from './ticker.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StockQuoteComponent
+    StockQuoteComponent,
+    StockTickerComponent
   ],
   imports: [
     BrowserModule,
@@ -19,9 +22,14 @@ import { StockQuoteComponent } from './stock-quote/stock-quote.component';
     RouterModule.forRoot([{
       path: 'stock-quote',
       component: StockQuoteComponent
+    },{
+      path: 'stock-ticker',
+      component: StockTickerComponent
     }])
   ],
-  providers: [],
+  providers: [
+    TickerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
